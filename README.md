@@ -2,7 +2,7 @@
 
 # Yamz steering presets
 
-Optional activation-steering presets for the Yamz engine (an ExLlamaV3 fork for AMD Strix Halo). A preset is a small file pair: one direction in the model's residual stream and a per-layer strength. The engine subtracts that direction while the model runs. It changes how often the model refuses. Nothing else.
+Optional activation-steering presets for [Kyojin](https://github.com/Yamz-Labs/kyojin), the Yamz Labs inference engine for AMD Strix Halo, built on ExLlamaV3. A preset is a small file pair: one direction in the model's residual stream and a per-layer strength. The engine subtracts that direction while the model runs. It changes how often the model refuses. Nothing else.
 
 What you get: on the published GLM-5.3-Flash pack, refusals fall from 81/100 to 0/100 (100 harmful prompts, same protocol). On the published MiMo pack they fall from 94/100 to 4/100. On GLM the hook costs under 1 % of decode (not measured on MiMo), one switch turns it off, and the files are small.
 
@@ -16,6 +16,7 @@ What you get: on the published GLM-5.3-Flash pack, refusals fall from 81/100 to 
 |---|---|---|
 | GLM-5.3-Flash | validated on the published pack (refusals 0/100, base 81/100; numbers below) | `glm-5.3-flash/` |
 | MiMo-V2.6-Flash | partly validated on the published pack (refusals 4/100, base 94/100; KLD +5.5 %; no task deltas) | `mimo-v2.6-flash/` |
+| Qwen3.8-Flash-Next | ships inside the model pack; figures and usage on the [model page](https://huggingface.co/yamz-labs/Qwen3.8-Flash-Next-EXL3-Yamz) | `uncensor-preset/` in the pack |
 
 ## Enable
 
@@ -46,7 +47,7 @@ Cost at run time: decode -0.1 to -0.3 %, prefill within noise (microbenchmark). 
 - Greedy decoding is not recommended with or without a preset; use the sampling on the model card (temperature 1.0, top-p 0.95).
 - English prompts only. Prompt sets: AdvBench, HarmBench, JBB (harmful); XSTest-safe, Alpaca (harmless).
 - The preset is a blunt, global edit. It lowers over-refusal and refusal together. It is not a safety evaluation and not a statement about what the model will or will not produce.
-- Tested on gfx1151 with ROCm only, with the Yamz engine only. A preset fitted on one model does not transfer to another.
+- Tested on gfx1151 with ROCm only, with Kyojin only. A preset fitted on one model does not transfer to another.
 - A hash proves the file is the one we measured. It proves nothing about your pack. If your quantisation differs, measure again.
 
 ## Responsible use
